@@ -44,6 +44,8 @@ use nb::block;
 use crate::pac::{USART1, USART2, USART3};
 use void::Void;
 
+use embedded_hal::serial::Write;
+
 use crate::afio::MAPR;
 //use crate::dma::{dma1, CircBuffer, Static, Transfer, R, W};
 // use crate::dma::{CircBuffer, Static, Transfer, R, W};
@@ -314,7 +316,7 @@ macro_rules! hal {
             }
             impl fmt::Write for Tx<$USARTX>
             where
-                Tx<$USARTX>: crate::hal::serial::Write<u8>,
+                Tx<$USARTX>: embedded_hal::serial::Write<u8>,
             {
                 fn write_str(&mut self, s: &str) -> fmt::Result {
                     let _ = s
